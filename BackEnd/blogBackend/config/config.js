@@ -1,33 +1,34 @@
 var path = require('path'),
-    rootPath = path.normalize(__dirname + '/..'),
-    env = process.env.NODE_ENV || 'development';
+  rootPath = path.normalize(__dirname + '/..'),
+  env = process.env.NODE_ENV || 'development',
+  defaultPort = 4000;
 
 var config = {
   development: {
     root: rootPath,
     app: {
-      name: 'blogbackend'
+      name: 'PersonBlog'
     },
-    port: process.env.PORT || 3000,
-    db: 'mongodb://localhost/blogbackend-development'
+    port: process.env.PORT || defaultPort,
+    db: 'mongodb://localhost/personblog-development'
   },
 
   test: {
     root: rootPath,
     app: {
-      name: 'blogbackend'
+      name: 'PersonBlog'
     },
-    port: process.env.PORT || 3000,
-    db: 'mongodb://localhost/blogbackend-test'
+    port: process.env.PORT || defaultPort,
+    db: 'mongodb://localhost/personblog-test'
   },
 
   production: {
     root: rootPath,
     app: {
-      name: 'blogbackend'
+      name: 'PersonBlog'
     },
-    port: process.env.PORT || 3000,
-    db: 'mongodb://localhost/blogbackend-production'
+    port: process.env.PORT || defaultPort,
+    db: 'mongodb://localhost/personblog-production'
   }
 };
 
