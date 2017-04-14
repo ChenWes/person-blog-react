@@ -15,4 +15,4 @@ RUN npm install
 EXPOSE 4000
 
 # 运行命令gulp start
-CMD ["gulp"]
+CMD ["npm","start"]
