@@ -10,7 +10,7 @@ var config = {
       name: 'PersonBlog'
     },
     port: process.env.PORT || defaultPort,
-    db: 'mongodb://localhost/personblog-development'
+    db: 'mongodb://192.168.99.100:27018/personblog-development'
   },
 
   test: {
