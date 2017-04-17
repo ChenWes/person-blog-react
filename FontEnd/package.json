@@ -1,0 +1,46 @@
+{
+  "name": "blogfontend",
+  "version": "1.0.0",
+  "description": "person blog fontend",
+  "main": "index.js",
+  "scripts": {
+    "febuild": "webpack",
+    "fedev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base build",
+    "bestart": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ".."
+  },
+  "author": "",
+  "license": "ISC",  
+  "homepage": "",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "graceful-fs": "^4.1.11",
+    "node-fetch": "^1.6.3",
+    "path": "^0.12.7",
+    "pusher": "^1.5.1",
+    "pusher-js": "^4.0.0",
+    "react": "^15.4.2",
+    "react-bootstrap": "^0.30.8",
+    "react-dom": "^15.4.2",
+    "webpack": "^2.3.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
+    "css-loader": "^0.27.3",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.10.1",
+    "html-loader": "^0.4.5",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.2",
+    "style-loader": "^0.16.0",
+    "url-loader": "^0.5.8",
+    "webpack-dev-server": "^2.4.2"
+  }
+}
