@@ -1,7 +1,8 @@
 var express = require('express'),
   router = express.Router(),
   mongoose = require('mongoose'),
-  Post = mongoose.model('Post');
+  Post = mongoose.model('Post'),
+  config = require('../../config/config');
 //this Post from model module name no file name
 
 module.exports = function (app) {
@@ -12,11 +13,35 @@ module.exports = function (app) {
 
 //get post list
 router.get('/', function (req, res, next) {
-  Post.find({}, function (err, posts) {
+  var pagesize = config.post.defaultPageSize;
+  var pageindex = 1;
+
+  var mongo_query = Post.find({});
+  mongo_query.limit(pagesize);
+  mongo_query.skip((pageindex - 1) * pagesize);
+
+  mongo_query.exec(function (err, posts) {
     if (err) return next(err);
     res.jsonp(posts);
   });
 });
+
+router.post('/pagelist', function (req, res, next) {
+  
+  var count = 0;
+  var pageindex = req.body.pageindex;
+  var pagesize = req.body.pagesize;
+
+  var mongo_query = Post.find({});
+  mongo_query.limit(pagesize);
+  mongo_query.skip((pageindex - 1) * pagesize);
+
+  mongo_query.exec(function (err, posts) {
+    if (err) return next(err);
+    res.jsonp(posts);
+  });
+});
+
 
 //---------------------------------------------------------------------------------------------------
 

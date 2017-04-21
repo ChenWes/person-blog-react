@@ -1,7 +1,10 @@
 var path = require('path'),
   rootPath = path.normalize(__dirname + '/..'),
   env = process.env.NODE_ENV || 'development',
-  defaultPort = 4000;
+  defaultPort = 4000,
+  postConfig = {
+    defaultPageSize: 10
+  };
 
 var config = {
   development: {
@@ -10,7 +13,8 @@ var config = {
       name: 'PersonBlog'
     },
     port: process.env.PORT || defaultPort,
-    db: 'mongodb://192.168.99.100:27018/personblog-development'
+    db: 'mongodb://192.168.99.100:27018/personblog-development',
+    post: postConfig
   },
 
   test: {
@@ -19,7 +23,8 @@ var config = {
       name: 'PersonBlog'
     },
     port: process.env.PORT || defaultPort,
-    db: 'mongodb://localhost/personblog-test'
+    db: 'mongodb://localhost/personblog-test',
+    post: postConfig
   },
 
   production: {
@@ -28,7 +33,8 @@ var config = {
       name: 'PersonBlog'
     },
     port: process.env.PORT || defaultPort,
-    db: 'mongodb://localhost/personblog-production'
+    db: 'mongodb://localhost/personblog-production',
+    post: postConfig
   }
 };
 
