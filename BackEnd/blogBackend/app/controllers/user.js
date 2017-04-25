@@ -27,7 +27,7 @@ module.exports = function (app) {
 // });
 
 // router.post('/pagelist', function (req, res, next) {
-  
+
 //   var count = 0;
 //   var pageindex = req.body.pageindex;
 //   var pagesize = req.body.pagesize;
@@ -45,103 +45,106 @@ module.exports = function (app) {
 
 //---------------------------------------------------------------------------------------------------
 
-//get post
-// router.get('/:id', function (req, res, next) {
-//   Post.find({ _id: req.params.id }, function (err, posts) {
-//     if (err) return next(err);
+//get user
+router.get('/:id', function (req, res, next) {
+  User.find({ _id: req.params.id }, function (err, users) {
+    if (err) return next(err);
 
-//     //check record
-//     if (!posts) {
-//       res.status(404).send('can not found record.');
-//     }
-
-//     //update query
-//     var query = { $set: { view: 1, updated: new Date() } };
-
-//     //update and response
-//     Post.update({ _id: req.params.id }, query, function (error, post) {
-//       if (error) return next(error);
-//       res.jsonp(posts);
-//     });
-
-//   });
-// });
+    //check record
+    if (!users) {
+      res.status(404).send('can not found record.');
+    }
+    else {
+      res.json(users);
+    }
+  });
+});
 
 //---------------------------------------------------------------------------------------------------
 
-//add post
-// router.post('/', function (req, res, next) {
-//   //{"post":{"title":"今天是个好天气","text":"今天天气还不错的样子，可以出去走走","author":"wes"}}
-//   //if post save json
-//   //new entity
-//   var postEntity = new Post({
-//     title: req.body.post.title,
-//     author: req.body.post.author,
-//     text: req.body.post.text,
-//     view: 0,
-//     created: new Date(),
-//     updated: new Date()
-//   });
+//user login
+router.post('/login', function (req, res, next) {
+  User.findOne({ usercode: req.params.usercode, password: req.params.password }, function (err, users) {
+    if (err) return next(err);
 
-//   //save record
-//   // postEntity.save(function (err, newPost) {
-//   //   if (err) return next(err);
-//   //   res.status(200).send('save post success.');
-//   // });
-
-//   //save record
-//   Post.create(postEntity, (err) => {
-//     if (err) return next(err);
-//     res.status(200).send('save post success.');
-//   })
-// });
+    if (!users) {
+      res.status(404).send('can not found record.');
+    } else {
+      res.json(users);
+    }
+  });
+});
 
 //---------------------------------------------------------------------------------------------------
 
-//update post
-// router.put('/:id', function (req, res, next) {
-//   Post.find({ _id: req.params.id }, function (err, posts) {
-//     if (err) return next(err);
+//change password
+router.put('/changepassword', function (req, res, next) {
+  User.find({ _id: req.body.id }, function (err, users) {
+    if (err) return next(err);
 
-//     if (!posts) {
-//       res.status(404).send('can not found record.');
-//     }
+    if (!users) {
+      res.status(404).send('can not found record.');
+    }
 
-//     //update query
-//     var query = {
-//       $set: {
-//         title: req.body.post.title,
-//         author: req.body.post.author,
-//         text: req.body.post.text,
-//         updated: new Date()
-//       }
-//     };
+    //update query
+    var query = {
+      $set: {
+        password: req.body.password,
+        updated: new Date()
+      }
+    };
 
-//     //update and response
-//     Post.update(posts, query, function (error, post) {
-//       if (error) return next(error);
-//       res.status(200).send('update post success.');
-//     });
-//   });
-// });
+    //update and response
+    User.update(posts, query, function (error, post) {
+      if (error) return next(error);
+      res.status(200).send('update post success.');
+    });
+  });
+});
+//---------------------------------------------------------------------------------------------------
+//add user
+router.post('/', function (req, res, next) {
+  //{"post":{"title":"今天是个好天气","text":"今天天气还不错的样子，可以出去走走","author":"wes"}}
+  //if post save json
+  //new entity
+  var userEntity = new User({
+    usercode: req.body.usercode,
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+    created: new Date(),
+    updated: new Date()
+  });
 
+  //save record
+  // userEntity.save(function (err, userEntity) {
+  //   if (err) return next(err);
+  //   res.status(200).send('save user success.');
+  // });
+
+  //save record
+  User.create(userEntity, (err) => {
+    if (err) return next(err);
+    res.status(200).send('save user success.');
+  })
+});
 //---------------------------------------------------------------------------------------------------
 
 //delete post
-// router.delete('/:id', function (req, res, next) {
+router.delete('/:id', function (req, res, next) {
 
-//   //function 1
-//   // Post.find({ _id: req.params.id }).remove().exec(function (err, posts) {
-//   //   if (err) return next(err);
-//   //   res.status(200).send('delete post success.');
-//   // });
+  //function 1
+  // User.find({ _id: req.params.id }).remove().exec(function (err, users) {
+  //   if (err) return next(err);
+  //   res.status(200).send('delete user success.');
+  // });
 
-//   //function 2
-//   Post.findOne({ _id: req.params.id }, function (err, posts) {
-//     if (err) return next(err);
-//     if (posts) {
-//       posts.remove();
-//       res.status(200).send('delete post success.');
-//     }
-//   });
-// });
+  //function 2
+  User.findOne({ _id: req.params.id }, function (err, users) {
+    if (err) return next(err);
+    if (users) {
+      users.remove();
+      res.status(200).send('delete user success.');
+    }
+  });
+});

@@ -22,12 +22,12 @@ router.get('/', function (req, res, next) {
 
   mongo_query.exec(function (err, posts) {
     if (err) return next(err);
-    res.jsonp(posts);
+    res.json(posts);
   });
 });
 
 router.post('/pagelist', function (req, res, next) {
-  
+
   var count = 0;
   var pageindex = req.body.pageindex;
   var pagesize = req.body.pagesize;
@@ -38,7 +38,7 @@ router.post('/pagelist', function (req, res, next) {
 
   mongo_query.exec(function (err, posts) {
     if (err) return next(err);
-    res.jsonp(posts);
+    res.status(200).json(posts);
   });
 });
 
@@ -52,7 +52,7 @@ router.get('/:id', function (req, res, next) {
 
     //check record
     if (!posts) {
-      res.status(404).send('can not found record.');
+      res.status(404).json({ message: 'no found' });
     }
 
     //update query
@@ -61,7 +61,7 @@ router.get('/:id', function (req, res, next) {
     //update and response
     Post.update({ _id: req.params.id }, query, function (error, post) {
       if (error) return next(error);
-      res.jsonp(posts);
+      res.status(200).json(posts);
     });
 
   });
@@ -71,7 +71,7 @@ router.get('/:id', function (req, res, next) {
 
 //add post
 router.post('/', function (req, res, next) {
-  //{"post":{"title":"今天是个好天气","text":"今天天气还不错的样子，可以出去走走","author":"wes"}}
+  //{"post":{"title":"newtitle","text":"newtext","author":"wes"}}
   //if post save json
   //new entity
   var postEntity = new Post({
@@ -84,16 +84,11 @@ router.post('/', function (req, res, next) {
   });
 
   //save record
-  // postEntity.save(function (err, newPost) {
-  //   if (err) return next(err);
-  //   res.status(200).send('save post success.');
-  // });
-
-  //save record
-  Post.create(postEntity, (err) => {
+  postEntity.save(function (err, newPost) {
     if (err) return next(err);
-    res.status(200).send('save post success.');
-  })
+    res.status(200).json(newPost);
+  });
+
 });
 
 //---------------------------------------------------------------------------------------------------
@@ -104,7 +99,7 @@ router.put('/:id', function (req, res, next) {
     if (err) return next(err);
 
     if (!posts) {
-      res.status(404).send('can not found record.');
+      res.status(404).json({ message: 'no found' });
     }
 
     //update query
@@ -120,7 +115,17 @@ router.put('/:id', function (req, res, next) {
     //update and response
     Post.update(posts, query, function (error, post) {
       if (error) return next(error);
-      res.status(200).send('update post success.');
+
+      //after update , will get data again
+      Post.find({ _id: req.params.id }, function (err, posts) {
+        if (err) return next(err);
+
+        if (!posts) {
+          res.status(404).json({ message: 'no found' });
+        }
+        res.status(200).json(posts);
+      });
+
     });
   });
 });
@@ -139,9 +144,13 @@ router.delete('/:id', function (req, res, next) {
   //function 2
   Post.findOne({ _id: req.params.id }, function (err, posts) {
     if (err) return next(err);
-    if (posts) {
+
+    if (!posts) {
+      res.status(404).json({ message: 'no found' });
+    } else {
+
       posts.remove();
-      res.status(200).send('delete post success.');
+      res.status(200).json({ message: 'success' });
     }
   });
 });
