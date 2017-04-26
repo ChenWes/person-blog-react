@@ -1,8 +1,8 @@
 {
-  "name": "createreactappstandard",
+  "name": "blogfontend",
   "version": "1.0.0",
-  "description": "It is the standard to create react App",
-  "main": "index.js",
+  "description": "react font for person blog",
+  "main": "server.js",
   "scripts": {
     "febuild": "webpack",
     "fedev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base build",
@@ -24,8 +24,6 @@
     "graceful-fs": "^4.1.11",
     "node-fetch": "^1.6.3",
     "path": "^0.12.7",
-    "pusher": "^1.5.1",
-    "pusher-js": "^4.0.0",
     "react": "^15.4.2",
     "react-bootstrap": "^0.30.8",
     "react-dom": "^15.4.2",
