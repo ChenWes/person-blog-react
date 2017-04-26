@@ -27,3 +27,13 @@ docker build -t person-blog-dev-backend .
 ```
 docker run -d --name person-blog-dev-backend --restart=always -p 4001:4000 person-blog-dev-backend
 ```
+
+## person blog fontend本地环境运行
+项目生成
+```
+yarn febuild
+```
+项目运行
+```
+yarn bestart
+```
