@@ -32,7 +32,7 @@ class Post extends Component {
 
         var that = this;
 
-        fetch('http://192.168.99.100:4001/post', {
+        fetch('http://csgroup-blog-api-container.daoapp.io/post', {
             method: 'GET',
             mode: 'cors',
         })
@@ -82,7 +82,7 @@ class Post extends Component {
 
         if (this.state.id) {
             //update data
-            fetch('http://192.168.99.100:4001/post/' + this.state.id, {
+            fetch('http://csgroup-blog-api-container.daoapp.io/post/' + this.state.id, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -115,7 +115,7 @@ class Post extends Component {
         }
         else {
             //add data
-            fetch('http://192.168.99.100:4001/post', {
+            fetch('http://csgroup-blog-api-container.daoapp.io/post', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -167,7 +167,7 @@ class Post extends Component {
         var ediIndex = e.target.getAttribute('data-key');
         var opeid = that.state.postList[ediIndex].id;
 
-        fetch('http://192.168.99.100:4001/post/' + opeid, {
+        fetch('http://csgroup-blog-api-container.daoapp.io/post/' + opeid, {
             // headers: {
             //     'Accept': 'application/json',
             //     'Content-Type': 'application/json'

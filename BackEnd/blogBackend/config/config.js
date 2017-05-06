@@ -13,7 +13,7 @@ var config = {
       name: 'PersonBlog'
     },
     port: process.env.PORT || defaultPort,
-    db: 'mongodb://192.168.99.100:27018/personblog-development',
+    db: 'mongodb://weschen:12345678@ds062889.mlab.com:62889/wesblog',
     post: postConfig
   },
 
@@ -33,7 +33,7 @@ var config = {
       name: 'PersonBlog'
     },
     port: process.env.PORT || defaultPort,
-    db: 'mongodb://localhost/personblog-production',
+    db: 'mongodb://weschen:12345678@ds062889.mlab.com:62889/wesblog',
     post: postConfig
   }
 };

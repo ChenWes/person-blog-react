@@ -15,10 +15,10 @@ COPY . /user/src/app
 
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 RUN $HOME/.yarn/bin/yarn install
-RUN npm install -g webpack && npm install && yarn febuild
+RUN yarn global add webpack && yarn install && yarn febuild
 
 #映射4000端口(已经修改项目的默认端口为3004)(指定容器需要映射到宿主机器的端口)
-EXPOSE 4000
+EXPOSE 4001
 
 # 运行命令gulp start
 CMD ["yarn","bestart"]

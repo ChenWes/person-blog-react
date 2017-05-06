@@ -1,14 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var Pusher = require('pusher');
-
-var pusher = new Pusher({
-  appId: '318756',
-  key: '235fe40f2b7ff3ad0a37',
-  secret: '6bd1e5f9795c76f08fa2',
-  cluster: 'ap1',
-  encrypted: true
-});
 
 router.use(function(req, res, next) {
     next();
